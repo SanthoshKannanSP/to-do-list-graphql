@@ -27,6 +27,21 @@ const ToDoPage = () => {
     }
 
     let updateToDo = async () => {
+        let endpoint = `/api/graphql`
+        let query = `mutation {
+          updateTodo(id:${toDo.id}, title: "${toDo.title}", description: "${toDo.description}"){
+            todo{
+              id,description,title
+            }
+          }
+        }`
+        
+        let response = await fetch(endpoint, {
+          "method": "POST",
+          "headers": {"Content-Type": "application/json"},
+          "body": JSON.stringify({"query":query})
+        })
+        let result = await response.json()
         history("/")
       }
 
@@ -37,11 +52,12 @@ const ToDoPage = () => {
     return (
         <div className="todo">
             <div className="todo-header">
-            <h3>
-                <LeftArrow onClick={updateToDo}/>
-            </h3>
+                <div className="todo-title-holder">
+                  <LeftArrow onClick={updateToDo}/>
+                  <input type="text" name="todo-title" className="todo-title" onChange={(e)=> {setToDo({...toDo,"title":e.target.value})}} defaultValue={toDo?.title}></input>          
+                </div>
             </div>
-        <textarea onChange={(e)=> {setToDo({...toDo,"description":e.target.value})}} defaultValue={toDo?.description}></textarea>
+        <textarea className="todo-description" onChange={(e)=> {setToDo({...toDo,"description":e.target.value})}} defaultValue={toDo?.description}></textarea>
         </div>
     )
 }

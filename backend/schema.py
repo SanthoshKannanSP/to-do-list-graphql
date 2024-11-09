@@ -25,8 +25,24 @@ class UpdateToDo(graphene.Mutation):
         return UpdateToDo(todo=todo)
 
 
+class DeleteToDo(graphene.Mutation):
+    class Arguments:
+        id = graphene.Int(required=True)
+
+    todo = graphene.Field(lambda: ToDoType)
+
+    def mutate(self, info, id):
+        todo = session.query(ToDo).filter_by(id=id).first()
+
+        session.delete(todo)
+        session.commit()
+
+        return DeleteToDo(todo=todo)
+
+
 class Mutation(graphene.ObjectType):
     update_todo = UpdateToDo.Field()
+    delete_todo = DeleteToDo.Field()
 
 
 class Query(graphene.ObjectType):

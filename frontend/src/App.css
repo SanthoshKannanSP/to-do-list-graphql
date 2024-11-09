@@ -198,19 +198,41 @@ a {
   justify-content: space-between;
   color: var(--color-main);
   padding: 10px;
+  font-size: 30px;
+  min-height: 50px;
+}
+
+.todo-title-holder {
+  width: 100%;
+  display: flex;
+  direction: row;
+  align-content: start;
+}
+
+.todo-title-holder svg {
+  height: 40px;
+  width: 40px;
+}
+
+.todo-title {
+  margin-left: 30px;
+  resize: None;
+  max-height: 40px;
+  width: 100%;
 }
 
 .todo-header h3 {
   display: flex;
   align-items: center;
-  font-size: 24px;
+  font-size: 30px;
   cursor: pointer;
 }
 
 .todo-header h3 svg {
   fill: var(--color-main);
-  width: 20px;
+  min-width: 40px;
   margin-right: 8px;
+  min-height: 50px;
 }
 
 .todo-header button {
@@ -229,11 +251,19 @@ a {
   width: 100%;
   height: 70vh;
   resize: none;
+  font-size: 20px;
   scrollbar-width: none; /* Firefox */
 }
 
+.todo input:active,
+.todo input:focus,
+.todo input{
+  outline: none;
+  border: none;
+}
+
 .todo textarea:active,
-.todo textarea:focus {
+.todo textarea:focus{
   outline: none;
   border: none;
 }
